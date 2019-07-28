@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Time</title>
+    <style>
+        #form {
+            width: 300px;
+            height: 200px;
+            background-color: rgb(53, 124, 238);
+            border-radius: 10px;
+            padding-top: 10px;
+            
+            
+        }
+
+        div >select {
+            width: 80%;
+            height: 50px;
+            position: relative;
+            margin-top: 10px;
+            margin-left: 5px;
+            margin-right: 0px;
+            display: inline-block;
+        }
+
+        .fas {
+            width: 25px;
+            margin-left: 10px;
+
+        }
+    </style>
+    
+    <script src="https://kit.fontawesome.com/e4b794bd40.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <!-- 全省威秀影城隔週電影新場次公布於每週二晚間23:59 -->
+    <!-- (假設週二整天只能查到：週二 週三 週四) -->
+    <!-- 會開放未來一週(週三會查到：今天到下星期四)之場次 -->
+    <div>
+        <p id="today"></p>
+    </div>
+    <div id="form">
+        <div class="theater">
+            <span><i class="fas fa-map-marker-alt"></i></span>
+            <select id="theater">
+                <!-- <option value="">請選擇影城</option> -->
+                <option value="台北信義威秀影城">台北信義威秀影城</option>
+                <option value="台中TIGER CITY威秀影城">台中TIGER CITY威秀影城</option>
+                <option value="高雄大遠百威秀影城">高雄大遠百威秀影城</option>
+            </select>
+        </div>
+        <div class="movie">
+            <span><i class="fas fa-video"></i></span>
+            <select id="movie">
+                <option value="">請選擇影片</option>
+                <option value="">玩命關頭：特別行動</option>
+                <option value="">獅子王</option>
+                <option value="">蜘蛛人：離家日</option>
+            </select>
+        </div>
+
+        <div class="movieday">
+            <span><i class="fas fa-calendar-alt"></i></span>
+            <select id="movieday">
+                <option value="">請選擇日期</option>
+            </select>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // var theater_list = ['台北信義威秀影城', '台中TIGER CITY威秀影城', '高雄大遠百威秀影城'];
+        var movie = [];
+        movie[0] = ['玩命關頭：特別行動', '獅子王', '蜘蛛人：離家日'];
+        movie[1] = ['駭客任務', '漫長的告別', '賭命大富翁'];
+        movie[2] = ['掃毒 2 天地對決', '名偵探柯南：紺青之拳', '仲夏魘'];
+        console.log(movie[2][1]);
+
+        //如果影城更換的話  影片列表要如何改變 (change())
+        $("#theater").change(function () {
+            //要先清空 不然電影內容會一直疊加
+            $("#movie").empty();
+            $("#movie").append("<option value=''>請選擇影片</option>");
+            for (i = 0; i <= 2; i++) {
+
+                //:selected 知道目前選取的選項的內容
+                var theater = $("#theater :selected").text();
+                // if(movie[0].length == theater_list[i]){
+                //     $("#movie").append("<option value=''>" + movie[0][i] + "</option>");
+                // }
+                console.log(theater);
+                switch (theater) {
+                    case '台北信義威秀影城':
+                        $("#movie").append("<option value=''>" + movie[0][i] + "</option>");
+                        break;
+
+                    case '台中TIGER CITY威秀影城':
+
+                        $("#movie").append("<option value=''>" + movie[1][i] + "</option>");
+                        break;
+                    case '高雄大遠百威秀影城':
+
+                        $("#movie").append("<option value=''>" + movie[2][i] + "</option>");
+                        break;
+                }
+
+
+            }
+        });
+
+
+
+        var d = new Date();
+        //測試用 如要選別的日期請取消註解
+        // d.setDate(31+30);
+        var day = d.getDay();
+        var i;
+
+        var day_list = ['日', '一', '二', '三', '四', '五', '六'];
+        var time_list = [2, 1, 0, 6, 5, 4, 3];
+
+
+        // document.getElementById("today").innerHTML = "今天是" + (d.getMonth() + 1) + "月" + d.getDate() + "日" + "星期" + day_list[d.getDay()];
+
+        for (i = 0; i <= time_list[day]; i++) {
+
+
+
+            $("#movieday").append("<option value=''>" + (d.getMonth() + 1) + "月" + d.getDate() + "日" + "星期" + day_list[d.getDay()] + "</option>");
+            d.setDate(d.getDate() + 1);
+
+        }
+
+
+
+
+    </script>
+
+
+
+
+
+</body>
+
+</html>
